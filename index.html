@@ -33,12 +33,38 @@
 		max-width: 600px;
 		height: auto;
 	}
-	
+	<div class="mobile-controls">
+		<button id="up">↑</button><br>
+		<button id="left">←</button>
+		<button id="down">↓</button>
+		<button id="right">→</button>
+	</div>
+		
 	.hint {
 		margin-top: 10px;
 		font-size: 14px;
 		color: #aaa;
 	}
+
+	.mobile-controls {
+		margin-top: 10px;
+	}
+
+	.mobile-controls button {
+		font-size: 24px;
+		padding: 10px 20px;
+		margin: 5px;
+		border-radius: 8px;
+		border: none;
+		background: #444;
+		color: #fff;
+		box-shadow: 0 0 5px #000;
+	}
+
+	.mobile-controls button:active {
+		background: #666;
+	}
+		
 	</style>
 </head>
 
@@ -52,4 +78,5 @@
 	<script src="game.js"></script>
 </body>
 </html>
+
 
