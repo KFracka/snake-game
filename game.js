@@ -1,6 +1,14 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
+// Make canvas size match CSS scaling
+function resizeCanvas() {
+	canvas.width = Math.mon(window.innerWidth * 0.9, 600);
+	canvas.height = canvas.width; // keep square
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
 const CELL_SIZE = 30;
 const WIDTH = canvas.width;
 const HEIGHT = canvas.height;
@@ -99,4 +107,5 @@ function gameLoop(){
 
 // Start game
 const SPEED = 220;
+
 setInterval(gameLoop, SPEED);
