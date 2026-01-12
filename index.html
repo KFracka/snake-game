@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Cobrinha do SaBOOR</title>
+	<style>
+	body {
+		background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+		margin: 0;
+		font-family: Arial, sans-serif;
+		color: #fff;
+	}
+	
+	.game-container {
+		text-align: center;
+	}
+	
+	h1 {
+		margin-bottom: 10px;
+		fonr-weight: normal;
+	}
+	
+	canvas {
+		background: #111;
+		border-radius: 12px;
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+		border: 2px solid #444;
+	}
+	
+	.hint {
+		margin-top: 10px;
+		font-size: 14px;
+		color: #aaa;
+	}
+	</style>
+</head>
+
+<body>
+	<div class="game-container">
+		<h1>🐍 Cobrinha do SaBOOR<h1>
+		<canvas id="game" width="600" height="600"></canvas>
+		<div class="hint">Use as setinhas pra provar o saBOOR Energetico!</div>
+	</div>
+	
+	<script src="game.js"></script>
+</body>
+</html>
