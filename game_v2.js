@@ -135,8 +135,6 @@ function gameLoop(timestamp) {
             direction = { x: CELL_SIZE, y: 0 };
         }
 
-        ctx.clearReact(0, 0, WIDTH, HEIGHT);
-
         // Draw food
         ctx.drawImage(foodImg, food.x, food.y, CELL_SIZE, CELL_SIZE);
 
@@ -153,5 +151,6 @@ function gameLoop(timestamp) {
 
     requestAnimationFrame(gameLoop);
 }
+
 
 
