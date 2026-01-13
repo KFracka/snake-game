@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
 const bgImg = new Image();
 bgImg.src = "assets/gym.png";
 
-bgImg.onload = () -> {
+bgImg.onload = () => {
     console.log("Background image loaded!");
 };
 
@@ -161,6 +161,7 @@ function gameLoop() {
 // Start game
 const SPEED = 220; // adjust for snake speed
 setInterval(gameLoop, SPEED);
+
 
 
 
