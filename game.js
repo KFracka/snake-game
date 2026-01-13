@@ -3,7 +3,7 @@ const ctx = canvas.getContext("2d");
 
 // Make canvas size match CSS scaling
 function resizeCanvas() {
-	canvas.width = Math.mon(window.innerWidth * 0.9, 600);
+	canvas.width = Math.min(window.innerWidth * 0.9, 600);
 	canvas.height = canvas.width; // keep square
 }
 resizeCanvas();
@@ -122,4 +122,5 @@ function gameLoop(){
 const SPEED = 220;
 
 setInterval(gameLoop, SPEED);
+
 
