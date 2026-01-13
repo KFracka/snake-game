@@ -1,84 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<title>Cobrinha do SaBOOR</title>
-	<style>
-	body {
-		background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100vh;
-		margin: 0;
-		font-family: Arial, sans-serif;
-		color: #fff;
-	}
-	
-	.game-container {
-		text-align: center;
-	}
-	
-	h1 {
-		margin-bottom: 10px;
-		font-weight: normal;
-	}
-	
-	canvas {
-		background: #111;
-		border-radius: 12px;
-		box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-		border: 2px solid #444;
-		width: 90vw;
-		max-width: 600px;
-		height: auto;
-	}
-	<div class="mobile-controls">
-		<button id="up">↑</button><br>
-		<button id="left">←</button>
-		<button id="down">↓</button>
-		<button id="right">→</button>
-	</div>
-		
-	.hint {
-		margin-top: 10px;
-		font-size: 14px;
-		color: #aaa;
-	}
+    <meta charset="UTF-8" />
+    <title>Cobrinha do SaBOOR</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
 
-	.mobile-controls {
-		margin-top: 10px;
-	}
+        .game-container {
+            text-align: center;
+        }
 
-	.mobile-controls button {
-		font-size: 24px;
-		padding: 10px 20px;
-		margin: 5px;
-		border-radius: 8px;
-		border: none;
-		background: #444;
-		color: #fff;
-		box-shadow: 0 0 5px #000;
-	}
+        h1 {
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
 
-	.mobile-controls button:active {
-		background: #666;
-	}
-		
-	</style>
+        canvas {
+            background: #111;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+            border: 2px solid #444;
+            width: 90vw;
+            max-width: 600px;
+            height: auto;
+        }
+
+        .hint {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .mobile-controls {
+            margin-top: 10px;
+        }
+
+        .mobile-controls button {
+            font-size: 24px;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 8px;
+            border: none;
+            background: #444;
+            color: #fff;
+            box-shadow: 0 0 5px #000;
+        }
+
+        .mobile-controls button:active {
+            background: #666;
+        }
+    </style>
 </head>
 
 <body>
-	<div class="game-container">
-		<h1>🐍 Cobrinha do SaBOOR<h1>
-		<canvas id="game" width="600" height="600"></canvas>
-		<div class="hint">Use as setinhas pra provar o saBOOR Energetico!</div>
-	</div>
-	
-	<script src="game_v2.js"></script>
+    <div class="game-container">
+        <h1>🐍 Cobrinha do SaBOOR</h1>
+        <canvas id="game" width="600" height="600"></canvas>
+
+        <!-- Mobile touch buttons -->
+        <div class="mobile-controls">
+            <button id="up">↑</button><br>
+            <button id="left">←</button>
+            <button id="down">↓</button>
+            <button id="right">→</button>
+        </div>
+
+        <div class="hint">Use as setinhas pra provar o saBOOR Energetico!</div>
+    </div>
+
+    <!-- Script loaded at the end of body -->
+    <script src="game_v2.js"></script>
 </body>
 </html>
-
-
-
-
