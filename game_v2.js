@@ -102,7 +102,12 @@ function randomPosition() {
     };
 }
 
+const bgImg = new Image();
+bgImg = "assets/gym.png";
+
 function gameLoop() {
+
+    ctx.drawImage(bgImg, 0, 0, WIDTH, HEIGHT);
     // Move snake
     const newHead = {
         x: snake[0].x + direction.x,
@@ -152,5 +157,6 @@ function gameLoop() {
 // Start game
 const SPEED = 220; // adjust for snake speed
 setInterval(gameLoop, SPEED);
+
 
 
