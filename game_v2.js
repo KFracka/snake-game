@@ -37,25 +37,28 @@ let direction = { x: CELL_SIZE, y: 0 };
 // Food
 let food = randomPosition();
 
-// Keyboard input
-document.addEventListener("keydown", e => {
-	if (e.key === "ArrowUp") direction = {x: 0, y: -CELL_SIZE };
-	if (e.key === "ArrowDown") direction = {x: 0, y: CELL_SIZE };
-	if (e.key === "ArrowLeft") direction = {x: -CELL_SIZE, y: 0};
-	if (e.key === "ArrowRight") direction = {x: CELL_SIZE, y: 0};
-});
+document.addEventListener("DOMContentLoaded" , () => {
+	// Keyboard input
+	document.addEventListener("keydown", e => {
+		if (e.key === "ArrowUp") direction = {x: 0, y: -CELL_SIZE };
+		if (e.key === "ArrowDown") direction = {x: 0, y: CELL_SIZE };
+		if (e.key === "ArrowLeft") direction = {x: -CELL_SIZE, y: 0};
+		if (e.key === "ArrowRight") direction = {x: CELL_SIZE, y: 0};
+	});
 
-document.getElementById("up").addEventListener("click", () => {
-	direction = {x: 0, y: -CELL_SIZE };
-});
-document.getElementById("down").addEventListener("click", () => {
-	direction = { x: 0, y: CELL_SIZE };
-});
-document.getElementById("left").addEventListener("click", () => {
-	direction = {x: -CELL_SIZE, y: 0 };
-});
-document.getElementById("right").addEventListener("click", () => {
-	direction = { x: CELL_SIZE, y: 0};
+	// Mobile buttons
+	document.getElementById("up").addEventListener("click", () => {
+		direction = {x: 0, y: -CELL_SIZE };
+	});
+	document.getElementById("down").addEventListener("click", () => {
+		direction = { x: 0, y: CELL_SIZE };
+	});
+	document.getElementById("left").addEventListener("click", () => {
+		direction = {x: -CELL_SIZE, y: 0 };
+	});
+	document.getElementById("right").addEventListener("click", () => {
+		direction = { x: CELL_SIZE, y: 0};
+	});
 });
 
 function randomPosition() {
@@ -122,5 +125,6 @@ function gameLoop(){
 const SPEED = 220;
 
 setInterval(gameLoop, SPEED);
+
 
 
