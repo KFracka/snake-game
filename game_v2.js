@@ -1,6 +1,31 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
+let touchStartX = 0;
+let touchStartY = 0;
+
+canvas.addEventListener("touchstart", (e) => {
+    const touch = e.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY =touch.clientY;
+}, { passive: true });
+
+canvas.addEventListener("touchend", (e) => {
+    const touch = e.changedTouches[0];
+    const dx = touch.clientX - touchStartX;
+    const dy = touch.clientY - touchStartY;
+
+    //Determine swipe direction
+    if (Math.abs(dx) > Math.abs(dy)) {
+        //Horizontal swipe
+        if (dx > 0 && direction.x === 0) direction = {x: CELL_SIZE, y: 0};
+        if (dx < 0 && direction.x === 0) direction = {x: -CELL_SIZE, y: 0};
+    } else {
+        //Vertical swipe
+        if (dy > 0 && direction.y === 0) direction = {x: 0, y: CELL_SIZE };
+        if (dy < 0 && direction.y === 0) direction = {x: 0, y: -CELL_SIZE };
+    }
+}, { passive: true });
 // Logical canvas size (game grid)
 canvas.width = 600;
 canvas.height = 600;
@@ -123,3 +148,4 @@ function gameLoop() {
 // Start game
 const SPEED = 220; // adjust for snake speed
 setInterval(gameLoop, SPEED);
+
