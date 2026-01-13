@@ -1,48 +1,16 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-const bgImg = new Image();
-bgImg.src = "assets/gym.png";
-
-bgImg.onload = () => {
-    console.log("Background image loaded!");
-};
-
-let touchStartX = 0;
-let touchStartY = 0;
-
-canvas.addEventListener("touchstart", (e) => {
-    const touch = e.touches[0];
-    touchStartX = touch.clientX;
-    touchStartY =touch.clientY;
-}, { passive: true });
-
-canvas.addEventListener("touchend", (e) => {
-    const touch = e.changedTouches[0];
-    const dx = touch.clientX - touchStartX;
-    const dy = touch.clientY - touchStartY;
-
-    //Determine swipe direction
-    if (Math.abs(dx) > Math.abs(dy)) {
-        //Horizontal swipe
-        if (dx > 0 && direction.x === 0) direction = {x: CELL_SIZE, y: 0};
-        if (dx < 0 && direction.x === 0) direction = {x: -CELL_SIZE, y: 0};
-    } else {
-        //Vertical swipe
-        if (dy > 0 && direction.y === 0) direction = {x: 0, y: CELL_SIZE };
-        if (dy < 0 && direction.y === 0) direction = {x: 0, y: -CELL_SIZE };
-    }
-}, { passive: true });
-// Logical canvas size (game grid)
-canvas.width = 600;
-canvas.height = 600;
-const WIDTH = canvas.width;
-const HEIGHT = canvas.height;
+// Canvas logical size
+const WIDTH = 600;
+const HEIGHT = 600;
+canvas.width = WIDTH;
+canvas.height = HEIGHT;
 
 const CELL_SIZE = 30;
-const HEAD_SCALE = 1.2; // slightly bigger than body
+const HEAD_SCALE = 1.2;
 
-// Display scaling for mobile
+// Responsive display
 function resizeCanvas() {
     const displaySize = Math.min(window.innerWidth * 0.9, 600);
     canvas.style.width = displaySize + "px";
@@ -52,6 +20,9 @@ resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
 // Load images
+const bgImg = new Image();
+bgImg.src = "assets/gym.png";
+
 const headImg = new Image();
 headImg.src = "assets/head.png";
 
@@ -61,46 +32,68 @@ bodyImg.src = "assets/body.png";
 const foodImg = new Image();
 foodImg.src = "assets/food.png";
 
+// Wait until all images are loaded
+let imagesLoaded = 0;
+const images = [bgImg, headImg, bodyImg, foodImg];
+images.forEach(img => {
+    img.onload = () => {
+        imagesLoaded++;
+        if (imagesLoaded === images.length) {
+            setInterval(gameLoop, SPEED); // start game only when all images loaded
+        }
+    };
+});
+
 // Snake
 let snake = [
     { x: 300, y: 300 },
     { x: 270, y: 300 },
     { x: 240, y: 300 }
 ];
-
 let direction = { x: CELL_SIZE, y: 0 };
 
 // Food
 let food = randomPosition();
 
-// Wait for DOM to load before attaching button events
-document.addEventListener("DOMContentLoaded", () => {
-    // Keyboard input
-    document.addEventListener("keydown", e => {
-        if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
-            e.preventDefault();
-        }
-        
-        if (e.key === "ArrowUp") direction = { x: 0, y: -CELL_SIZE };
-        if (e.key === "ArrowDown") direction = { x: 0, y: CELL_SIZE };
-        if (e.key === "ArrowLeft") direction = { x: -CELL_SIZE, y: 0 };
-        if (e.key === "ArrowRight") direction = { x: CELL_SIZE, y: 0 };
-    });
-
-    // // Mobile buttons
-    // document.getElementById("up").addEventListener("click", () => {
-    //     direction = { x: 0, y: -CELL_SIZE };
-    // });
-    // document.getElementById("down").addEventListener("click", () => {
-    //     direction = { x: 0, y: CELL_SIZE };
-    // });
-    // document.getElementById("left").addEventListener("click", () => {
-    //     direction = { x: -CELL_SIZE, y: 0 };
-    // });
-    // document.getElementById("right").addEventListener("click", () => {
-    //     direction = { x: CELL_SIZE, y: 0 };
-    // });
+// Keyboard controls
+document.addEventListener("keydown", e => {
+    if (["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key)) {
+        e.preventDefault(); // prevent page scrolling
+    }
+    if (e.key === "ArrowUp" && direction.y === 0) direction = { x: 0, y: -CELL_SIZE };
+    if (e.key === "ArrowDown" && direction.y === 0) direction = { x: 0, y: CELL_SIZE };
+    if (e.key === "ArrowLeft" && direction.x === 0) direction = { x: -CELL_SIZE, y: 0 };
+    if (e.key === "ArrowRight" && direction.x === 0) direction = { x: CELL_SIZE, y: 0 };
 });
+
+// Mobile swipe controls
+let touchStartX = 0;
+let touchStartY = 0;
+const SWIPE_THRESHOLD = 30;
+
+canvas.addEventListener("touchstart", e => {
+    const touch = e.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+}, { passive: false });
+
+canvas.addEventListener("touchmove", e => e.preventDefault(), { passive: false });
+
+canvas.addEventListener("touchend", e => {
+    const touch = e.changedTouches[0];
+    const dx = touch.clientX - touchStartX;
+    const dy = touch.clientY - touchStartY;
+
+    if (Math.abs(dx) < SWIPE_THRESHOLD && Math.abs(dy) < SWIPE_THRESHOLD) return;
+
+    if (Math.abs(dx) > Math.abs(dy)) {
+        if (dx > 0 && direction.x === 0) direction = { x: CELL_SIZE, y: 0 };
+        if (dx < 0 && direction.x === 0) direction = { x: -CELL_SIZE, y: 0 };
+    } else {
+        if (dy > 0 && direction.y === 0) direction = { x: 0, y: CELL_SIZE };
+        if (dy < 0 && direction.y === 0) direction = { x: 0, y: -CELL_SIZE };
+    }
+}, { passive: false });
 
 function randomPosition() {
     return {
@@ -110,13 +103,11 @@ function randomPosition() {
 }
 
 function gameLoop() {
-
+    // Draw background first
     ctx.drawImage(bgImg, 0, 0, WIDTH, HEIGHT);
+
     // Move snake
-    const newHead = {
-        x: snake[0].x + direction.x,
-        y: snake[0].y + direction.y
-    };
+    const newHead = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
     snake.unshift(newHead);
 
     // Eat food
@@ -141,29 +132,19 @@ function gameLoop() {
         direction = { x: CELL_SIZE, y: 0 };
     }
 
-    // Draw
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
-
     // Draw food
     ctx.drawImage(foodImg, food.x, food.y, CELL_SIZE, CELL_SIZE);
 
-    // Draw head
+    // Draw snake head
     const headSize = CELL_SIZE * HEAD_SCALE;
     const headOffset = (headSize - CELL_SIZE) / 2;
     ctx.drawImage(headImg, snake[0].x - headOffset, snake[0].y - headOffset, headSize, headSize);
 
-    // Draw body
+    // Draw snake body
     for (let i = 1; i < snake.length; i++) {
         ctx.drawImage(bodyImg, snake[i].x, snake[i].y, CELL_SIZE, CELL_SIZE);
     }
 }
 
-// Start game
-const SPEED = 220; // adjust for snake speed
-setInterval(gameLoop, SPEED);
-
-
-
-
-
-
+// Snake speed
+const SPEED = 220; // milliseconds
