@@ -1,6 +1,13 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
+const bgImg = new Image();
+bgImg.src = "assets/gym.png";
+
+bgImg.onload = () -> {
+    console.log("Background image loaded!");
+};
+
 let touchStartX = 0;
 let touchStartY = 0;
 
@@ -102,9 +109,6 @@ function randomPosition() {
     };
 }
 
-const bgImg = new Image();
-bgImg = "assets/gym.png";
-
 function gameLoop() {
 
     ctx.drawImage(bgImg, 0, 0, WIDTH, HEIGHT);
@@ -157,6 +161,7 @@ function gameLoop() {
 // Start game
 const SPEED = 220; // adjust for snake speed
 setInterval(gameLoop, SPEED);
+
 
 
 
