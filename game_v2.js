@@ -70,6 +70,10 @@ let food = randomPosition();
 document.addEventListener("DOMContentLoaded", () => {
     // Keyboard input
     document.addEventListener("keydown", e => {
+        if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
+            e.preventDefault();
+        }
+        
         if (e.key === "ArrowUp") direction = { x: 0, y: -CELL_SIZE };
         if (e.key === "ArrowDown") direction = { x: 0, y: CELL_SIZE };
         if (e.key === "ArrowLeft") direction = { x: -CELL_SIZE, y: 0 };
@@ -148,4 +152,5 @@ function gameLoop() {
 // Start game
 const SPEED = 220; // adjust for snake speed
 setInterval(gameLoop, SPEED);
+
 
