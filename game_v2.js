@@ -126,7 +126,7 @@ function gameLoop(timestamp) {
             newHead.y < 0 || newHead.y >= HEIGHT ||
             snake.slice(1).some(p => p.x === newHead.x && p.y === newHead.y)
         ) {
-            alert("Sem SabOOOR :c");
+            // alert("Sem SabOOOR :c");
             snake = [
                 { x: 300, y: 300 },
                 { x: 270, y: 300 },
@@ -151,6 +151,7 @@ function gameLoop(timestamp) {
 
     requestAnimationFrame(gameLoop);
 }
+
 
 
 
