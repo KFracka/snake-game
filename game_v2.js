@@ -2,6 +2,10 @@ const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
 // Logical canvas size
+
+const START_X = Math.floor(WIDTH / 2 / CELL_SIZE) * CELL_SIZE;
+const START_Y = Math.floor(HEIGHT / 2 / CELL_sIZE) * CELL_SIZE;;
+
 const WIDTH = 600;
 const HEIGHT = 600;
 canvas.width = WIDTH;
@@ -47,9 +51,9 @@ images.forEach(img => {
 
 // Snake and food
 let snake = [
-    { x: 300, y: 300 },
-    { x: 270, y: 300 },
-    { x: 240, y: 300 }
+    { x: START_X, y: START_Y},
+    { x: START_X - CELL_SIZE, y: START_Y },
+    { x: START_X - CELL_SIZE * 2, y: START_Y }
 ];
 let direction = { x: CELL_SIZE, y: 0 };
 let food = randomPosition();
@@ -151,6 +155,7 @@ function gameLoop(timestamp) {
 
     requestAnimationFrame(gameLoop);
 }
+
 
 
 
