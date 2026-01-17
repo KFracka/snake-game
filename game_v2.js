@@ -1,20 +1,27 @@
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
-
-// Logical canvas size
-
-const START_X = Math.floor(WIDTH / 2 / CELL_SIZE) * CELL_SIZE;
-const START_Y = Math.floor(HEIGHT / 2 / CELL_sIZE) * CELL_SIZE;;
-
 const WIDTH = 600;
 const HEIGHT = 600;
-canvas.width = WIDTH;
-canvas.height = HEIGHT;
 
 const CELL_SIZE = 30;
 const SNAKE_SCALE = 1.4;
 const HEAD_SCALE = 1.2;
 const SPEED = 220;
+
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+// Logical canvas size
+
+canvas.width = WIDTH;
+canvas.height = HEIGHT;
+
+const START_X = Math.floor(WIDTH / 2 / CELL_SIZE) * CELL_SIZE;
+const START_Y = Math.floor(HEIGHT / 2 / CELL_sIZE) * CELL_SIZE;;
+
+let snake = [
+    { x: START_X, y: START_Y},
+    { x: START_X - CELL_SIZE, y: START_Y },
+    { x: START_X - CELL_SIZE * 2, y: START_Y }
+];
 
 // Responsive display scaling
 function resizeCanvas() {
@@ -51,11 +58,6 @@ images.forEach(img => {
 });
 
 // Snake and food
-let snake = [
-    { x: START_X, y: START_Y},
-    { x: START_X - CELL_SIZE, y: START_Y },
-    { x: START_X - CELL_SIZE * 2, y: START_Y }
-];
 let direction = { x: CELL_SIZE, y: 0 };
 let food = randomPosition();
 
@@ -143,9 +145,9 @@ function gameLoop(timestamp) {
         ) {
             // alert("Sem SabOOOR :c");
             snake = [
-                { x: 300, y: 300 },
-                { x: 270, y: 300 },
-                { x: 240, y: 300 }
+                { x: START_X, y: START_Y },
+                { x: START_X - CELL_SIZE, y: START_Y },
+                { x: START_X - CELL_SIZE * 2, y: START_Y }
             ];
             direction = { x: CELL_SIZE, y: 0 };
         }
@@ -188,6 +190,7 @@ function gameLoop(timestamp) {
 
     requestAnimationFrame(gameLoop);
 }
+
 
 
 
