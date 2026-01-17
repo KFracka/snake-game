@@ -11,7 +11,8 @@ const HEIGHT = 600;
 canvas.width = WIDTH;
 canvas.height = HEIGHT;
 
-const CELL_SIZE = 50;
+const CELL_SIZE = 30;
+const SNAKE_SCALE = 1.4;
 const HEAD_SCALE = 1.2;
 const SPEED = 220;
 
@@ -111,7 +112,17 @@ function gameLoop(timestamp) {
         lastTime = timestamp;
 
         // Draw background
-        ctx.drawImage(bgImg, 0, 0, WIDTH, HEIGHT);
+        // ctx.drawImage(bgImg, 0, 0, WIDTH, HEIGHT);
+        const drawSize = CELL_SIZE * SNAKE_SCALE;
+        const offset = (drawSize - CELL_SIZE) / 2;
+
+        ctx.drawImage(
+            bodyImg,
+            snake[i].x - offset,
+            snake[i].y - offset,
+            drawSize,
+            drawSize
+            );
 
         // Move snake
         const newHead = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
@@ -139,14 +150,36 @@ function gameLoop(timestamp) {
             direction = { x: CELL_SIZE, y: 0 };
         }
 
-        // Draw food
-        ctx.drawImage(foodImg, food.x, food.y, CELL_SIZE, CELL_SIZE);
+        // // Draw food
+        // ctx.drawImage(foodImg, food.x, food.y, CELL_SIZE, CELL_SIZE);
 
+        const foodScale = 1.2;
+        const foodSize = CELL_SIZE * foodScale;
+        const foodOffset = (foodSize - CELL_SIZE) / 2;
+
+        ctx.drawImage(
+            foodImg,
+            food.x - foodOffSset,
+            food.y - foosOffset,
+            foodSize,
+            foodSize
+            );
+        
         // Draw snake head
-        const headSize = CELL_SIZE * HEAD_SCALE;
-        const headOffset = (headSize - CELL_SIZE) / 2;
-        ctx.drawImage(headImg, snake[0].x - headOffset, snake[0].y - headOffset, headSize, headSize);
+        // const headSize = CELL_SIZE * HEAD_SCALE;
+        // const headOffset = (headSize - CELL_SIZE) / 2;
+        // ctx.drawImage(headImg, snake[0].x - headOffset, snake[0].y - headOffset, headSize, headSize);
 
+        const headSize = CELL_SIZE * SNAKE_CELL * HEAD_SCALE;
+        const headOffset = (headSize - CELL_SIZE) / 2;
+
+        ctx.drawImage(
+            headImg,
+            snake[0].x - headOffset,
+            snake[0].y - headOffset,
+            headSize,
+            headSize
+            );
         // Draw snake body
         for (let i = 1; i < snake.length; i++) {
             ctx.drawImage(bodyImg, snake[i].x, snake[i].y, CELL_SIZE, CELL_SIZE);
@@ -155,6 +188,7 @@ function gameLoop(timestamp) {
 
     requestAnimationFrame(gameLoop);
 }
+
 
 
 
