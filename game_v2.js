@@ -7,7 +7,7 @@ const HEIGHT = 600;
 canvas.width = WIDTH;
 canvas.height = HEIGHT;
 
-const CELL_SIZE = 30;
+const CELL_SIZE = 50;
 const HEAD_SCALE = 1.2;
 const SPEED = 220;
 
@@ -151,6 +151,7 @@ function gameLoop(timestamp) {
 
     requestAnimationFrame(gameLoop);
 }
+
 
 
 
